@@ -11,6 +11,7 @@ let private runPuzzle =
     | Day.Day7 -> Day7.run ()
     | Day.Day8 -> Day8.run ()
     | Day.Day9 -> Day9.run ()
+    | Day.Day10 -> Day10.run ()
     | Day.DayX -> DayX.run ()
     
 let inline all<'a> = 
