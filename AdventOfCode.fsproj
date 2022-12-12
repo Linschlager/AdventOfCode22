@@ -16,6 +16,7 @@
         <EmbeddedResource Include="Data\Day6Test1.txt" />
         <EmbeddedResource Include="Data\Day7Test1.txt" />
         <EmbeddedResource Include="Data\Day8Test1.txt" />
+        <EmbeddedResource Include="Data\Day9Test1.txt" />
         <EmbeddedResource Include="Data\Day1Prod1.txt" />
         <EmbeddedResource Include="Data\Day2Prod1.txt" />
         <EmbeddedResource Include="Data\Day3Prod1.txt" />
@@ -24,6 +25,7 @@
         <EmbeddedResource Include="Data\Day6Prod1.txt" />
         <EmbeddedResource Include="Data\Day7Prod1.txt" />
         <EmbeddedResource Include="Data\Day8Prod1.txt" />
+        <EmbeddedResource Include="Data\Day9Prod1.txt" />
         <Compile Include="Data\Data.fs" />
         <Compile Include="DailyPuzzle\Day1.fs" />
         <Compile Include="DailyPuzzle\Day2.fs" />
@@ -33,6 +35,7 @@
         <Compile Include="DailyPuzzle\Day6.fs" />
         <Compile Include="DailyPuzzle\Day7.fs" />
         <Compile Include="DailyPuzzle\Day8.fs" />
+        <Compile Include="DailyPuzzle\Day9.fs" />
         <Compile Include="DailyPuzzle\DayX.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>

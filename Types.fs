@@ -10,6 +10,7 @@ type Day =
     | Day6
     | Day7
     | Day8
+    | Day9
     | DayX
 
 [<RequireQualifiedAccess>]
