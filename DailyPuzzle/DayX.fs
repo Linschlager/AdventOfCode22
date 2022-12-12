@@ -1,6 +1,6 @@
-module AdventOfCode.Day4
+module AdventOfCode.DayX
 
-let private today = Day.Day4
+let private today = Day.DayX
 let private phase = Data.Test
 
 let private part1 () =

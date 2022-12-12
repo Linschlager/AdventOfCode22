@@ -3,10 +3,43 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs"/>
+        <Compile Include="Types.fs" />
+        <EmbeddedResource Include="Data\Day1Test1.txt" />
+        <EmbeddedResource Include="Data\Day2Test1.txt" />
+        <EmbeddedResource Include="Data\Day3Test1.txt" />
+        <EmbeddedResource Include="Data\Day4Test1.txt" />
+        <EmbeddedResource Include="Data\Day5Test1.txt" />
+        <EmbeddedResource Include="Data\Day6Test1.txt" />
+        <EmbeddedResource Include="Data\Day7Test1.txt" />
+        <EmbeddedResource Include="Data\Day8Test1.txt" />
+        <EmbeddedResource Include="Data\Day1Prod1.txt" />
+        <EmbeddedResource Include="Data\Day2Prod1.txt" />
+        <EmbeddedResource Include="Data\Day3Prod1.txt" />
+        <EmbeddedResource Include="Data\Day4Prod1.txt" />
+        <EmbeddedResource Include="Data\Day5Prod1.txt" />
+        <EmbeddedResource Include="Data\Day6Prod1.txt" />
+        <EmbeddedResource Include="Data\Day7Prod1.txt" />
+        <EmbeddedResource Include="Data\Day8Prod1.txt" />
+        <Compile Include="Data\Data.fs" />
+        <Compile Include="DailyPuzzle\Day1.fs" />
+        <Compile Include="DailyPuzzle\Day2.fs" />
+        <Compile Include="DailyPuzzle\Day3.fs" />
+        <Compile Include="DailyPuzzle\Day4.fs" />
+        <Compile Include="DailyPuzzle\Day5.fs" />
+        <Compile Include="DailyPuzzle\Day6.fs" />
+        <Compile Include="DailyPuzzle\Day7.fs" />
+        <Compile Include="DailyPuzzle\Day8.fs" />
+        <Compile Include="DailyPuzzle\DayX.fs" />
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include=".dockerignore" />
+      <Content Include="Dockerfile" />
     </ItemGroup>
 
 </Project>

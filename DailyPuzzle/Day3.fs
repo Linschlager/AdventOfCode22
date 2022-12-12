@@ -1,111 +1,55 @@
-module AdventOfCode.Day2
+module AdventOfCode.Day3
 
-let private today = Day.Day2
+let x : int option = None
+
+let private today = Day.Day3
 let private phase = Data.Prod
 
-[<RequireQualifiedAccess>]
-type private GameResult = Win | Draw | Loss
+let private parseLineSplit (input: string) =
+    let len = input.Length
+    let first = input.Substring (0, len >>> 1)
+    let second = input.Substring (len >>> 1)
+    first.ToCharArray (), second.ToCharArray ()
+    
+let private parseLine (input: string) = input.ToCharArray ()
 
-[<RequireQualifiedAccess>]
-module private GameResult =
-    let score =
-        function
-        | GameResult.Win -> 6
-        | GameResult.Draw -> 3
-        | GameResult.Loss -> 0
+let private sharedChars (first: Set<char>, second: Set<char>) =
+    Set.intersect first second
     
-    let tryParse =
-        function
-        | "X" -> Some GameResult.Loss
-        | "Y" -> Some GameResult.Draw
-        | "Z" -> Some GameResult.Win
-        | _ -> None
-    
-    let (|Result|_|) = tryParse
-    
-[<RequireQualifiedAccess>]
-type private Shape =
-    | Rock
-    | Paper
-    | Scissors
+let private sharedCharsArr (items: Set<char> array) =
+    Array.fold Set.intersect items[0] items
 
-[<RequireQualifiedAccess>]
-module private Shape =
-    let score =
-        function
-        | Shape.Rock -> 1
-        | Shape.Paper -> 2
-        | Shape.Scissors -> 3
-    
-    let tryParse =
-        function
-        | "A"
-        | "X" -> Some Shape.Rock
-        | "B"
-        | "Y" -> Some Shape.Paper
-        | "C"
-        | "Z" -> Some Shape.Scissors
-        | _ -> None
-    
-    let result (self: Shape) (other: Shape) =
-        match self, other with
-        | Shape.Rock, Shape.Paper
-        | Shape.Paper, Shape.Scissors
-        | Shape.Scissors, Shape.Rock -> GameResult.Loss
-        | Shape.Rock, Shape.Rock
-        | Shape.Paper, Shape.Paper
-        | Shape.Scissors, Shape.Scissors -> GameResult.Draw
-        | Shape.Rock, Shape.Scissors
-        | Shape.Scissors, Shape.Paper
-        | Shape.Paper, Shape.Rock -> GameResult.Win
-    
-    let requiredShape (other: Shape) (result: GameResult) =
-        match other, result with
-        | Shape.Rock, GameResult.Win
-        | Shape.Paper, GameResult.Draw
-        | Shape.Scissors, GameResult.Loss -> Shape.Paper
-        | Shape.Rock, GameResult.Draw
-        | Shape.Scissors, GameResult.Win
-        | Shape.Paper, GameResult.Loss -> Shape.Rock
-        | Shape.Rock, GameResult.Loss
-        | Shape.Paper, GameResult.Win
-        | Shape.Scissors, GameResult.Draw -> Shape.Scissors
-    
-    let (|Shape|_|) = tryParse
+let private priority (input: char) =
+    let numRep = int input
+    if System.Char.IsLetter input then
+        if System.Char.IsLower input then
+            Some (numRep - 96)
+        else
+            Some (numRep - 38)
+    else
+        None
 
-let private scoreLine (other, self) =
-    let res = Shape.result self other
-    Shape.score self + GameResult.score res
-
-let private part1 () =    
-    let parseLine (input: string) =
-        let split = input.Split " "
-        match split with
-        | [| Shape.Shape other; Shape.Shape self |] ->
-            (other, self)
-        | _ -> failwith input
-        
+let private part1 () =
     let data = Data.load phase today 1
     data
-    |> Array.map parseLine
-    |> Array.map (fun line -> line, scoreLine line)
-    |> Array.sumBy snd
-
+    |> Array.map parseLineSplit
+    |> Array.map (fun (f, s) -> set f, set s)
+    |> Array.map sharedChars
+    |> Array.collect Set.toArray
+    |> Array.choose priority
+    |> Array.sum
+    
 let private part2 () =
-    let parseLine (input: string) =
-        let split = input.Split " "
-        match split with
-        | [| Shape.Shape other; GameResult.Result expectedResult |] ->
-            let self = Shape.requiredShape other expectedResult
-            (other, self)
-        | _ -> failwith input
-    
     let data = Data.load phase today 1
     data
     |> Array.map parseLine
-    |> Array.map (fun line -> line, scoreLine line)
-    |> Array.sumBy snd
+    |> Array.chunkBySize 3
+    |> Array.map (Array.map set)
+    |> Array.map sharedCharsArr
+    |> Array.collect Set.toArray
+    |> Array.choose priority
+    |> Array.sum
 
 let run () =
-    part1 () |> printfn "Total Score if everything goes as planned: \"%A\""
-    part2 () |> printfn "Total Score with special strategy: \"%A\""
+    part1 () |> printfn "Shared in compartments: \"%A\""
+    part2 () |> printfn "Badge type: \"%A\""
